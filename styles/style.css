@@ -20,14 +20,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 100px;
+  gap: 98px;
 }
 
 .header {
   display: flex;
   flex-direction: column;
   inline-size: var(--card-inline-size);
-  block-size: clamp(327px, calc(368px - 3.84vw), 368px);
   justify-content: center;
   align-items: center;
   background-color: var(--title-bg-color);
@@ -37,10 +36,13 @@
   margin-block-start: 100px;
   gap: 20px;
   color: var(--text-color);
+  padding-block: 130px 130px;
 }
 
 .header__title {
   font-size: clamp(3.0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
+  inline-size: 100%;
+  text-align: center;
 }
 
 .header__subtitle {
@@ -94,18 +96,12 @@
     -1px 0 var(--text-stroke-color),
     0 1px var(--text-stroke-color),
     0 -1px var(--text-stroke-color);
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
-@supports (-webkit-text-stroke: 1px var(--text-stroke-color)) {
+@supports (-webkit-text-stroke: 1px var(--text-stroke-color)) or (text-stroke: 1px var(--text-stroke-color)) {
   .card__label {
     -webkit-text-stroke: 1px var(--text-stroke-color);
-    text-shadow: none;
-  }
-}
-
-@supports (text-stroke: 1px var(--text-stroke-color)) {
-  .card__label {
     text-stroke: 1px var(--text-stroke-color);
     text-shadow: none;
   }
@@ -146,7 +142,9 @@
 .card__text {
   margin: 25px;
   font-variation-settings: "wght" var(--card-text-weight, 410);
-  line-height: 21px;
+  line-height: 1.3125;
+  font-size: var(--main-font-size);
+  line-height: 131.25%;
 }
 
 button {
@@ -164,13 +162,13 @@ button {
   justify-content: center;
   padding: 12px 37px;
   border: var(--border-bg-color);
-  border-radius: 0;
   font-family: var(--accent-font);
   font-size: var(--label-font);
   cursor: pointer;
   position: relative;
   overflow: hidden;
   color: var(--button-text-color);
+  transition: box-shadow 0.3s ease;
 }
 
 .button::before {
@@ -187,11 +185,9 @@ button {
   transform: scaleX(1);
 }
 
-.button:focus-visible,
-.dialog__content-button:focus-visible {
+.button:focus-visible {
   box-shadow: 2px 2px 0 2px var(--text-color);
   outline: none;
-  transition: box-shadow 0.3s ease-out;
 }
 
 .button__text {
@@ -219,6 +215,7 @@ button {
   align-items: center;
   justify-content: center;
   overflow: visible;
+  transition: outline 0.3s ease;
 }
 
 .card__icon-button:focus-visible {
@@ -234,19 +231,13 @@ button {
 }
 
 .dialog__content-button {
+  display: grid;
+  grid-template-columns: auto 1fr;
   background-color: var(--title-bg-color);
-  display: flex;
-  align-items: center;
-  border: var(--border-bg-color);
-  border-radius: 0;
-  font-family: var(--accent-font);
-  font-size: var(--label-font);
-  cursor: pointer;
+  inline-size: clamp(306px, calc(296px + 2.72vw), 335px);
   padding: 17px 20px;
   gap: 8px;
-  position: relative;
-  overflow: hidden;
-  color: var(--button-text-color);
+  white-space: nowrap;
 }
 
 .dialog__content-button::before {
@@ -261,11 +252,6 @@ button {
 
 .dialog__content-button:hover::before {
   transform: scaleX(1);
-}
-
-.dialog__content-button.button {
-  inline-size: clamp(306px, calc(296px + 2.72vw), 335px);
-  block-size: clamp(55px, calc(94px - 2.72vw), 84px);
 }
 
 .dialog__icon {
@@ -283,7 +269,7 @@ button {
 }
 
 .dialog::backdrop {
-  background-color: rgb(0 0 0 / 0.8);
+  background-color: rgb(0 0 0 / 0.75);
 }
 
 .dialog[open] {
@@ -324,7 +310,7 @@ button {
 .like-icon {
   display: block;
   inline-size: 39px;
-  block-size: 38px;
+  block-size: 32px;
 }
 
 .heart {
@@ -344,11 +330,13 @@ button {
 }
 
 .like-icon .core {
+  fill: transparent;
   transition: fill 0.3s linear 0.03s;
 }
 
 .like-icon .main-body {
-  transition: fill 0.3s linear 0.3s;
+  fill: transparent;
+  transition: fill 0.3s linear;
 }
 
 .like-icon:hover .core {
@@ -372,8 +360,13 @@ button {
 }
 
 @media (width <= 376px) {
-  .card__title-part1 {
-    display: block;
+  .header {
+    padding-block: 122px 122px;
+    padding-inline: 16px;
+  }
+
+  .card__title {
+    max-inline-size: 351px;
   }
 
   .dialog__icon {
@@ -382,6 +375,8 @@ button {
   }
 
   .dialog__content-button {
+    display:flex;
     flex-direction: column;
+
   }
 }

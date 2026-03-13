@@ -42,6 +42,10 @@ ol {
   list-style: none;
 }
 
+dialog {
+  padding: 0;
+}
+
 .visually-hidden {
   position: absolute;
   inline-size: 1px;

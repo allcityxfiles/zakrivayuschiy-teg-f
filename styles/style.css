@@ -97,6 +97,20 @@
   opacity: 0.6;
 }
 
+@supports (-webkit-text-stroke: 1px var(--text-stroke-color)) {
+  .card__label {
+    -webkit-text-stroke: 1px var(--text-stroke-color);
+    text-shadow: none;
+  }
+}
+
+@supports (text-stroke: 1px var(--text-stroke-color)) {
+  .card__label {
+    text-stroke: 1px var(--text-stroke-color);
+    text-shadow: none;
+  }
+}
+
 .card__image-filter-sepia {
   filter: sepia(0.2);
 }
